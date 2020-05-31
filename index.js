@@ -35,8 +35,6 @@ const getSneakerDescription = async (page) => {
 
   let items = await page.$$(".thumbnail-overlay");
 
-  // recherche sur ElementHandle
-
   for (const item of items) {
     const sneakerDescription = await getSneakerDescription(page);
     const sneakerName = await page.evaluate((el) => {
