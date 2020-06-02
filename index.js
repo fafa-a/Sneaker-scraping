@@ -71,7 +71,7 @@ const getSneakerDescription = async (page) => {
   const date = DATE.split("/").join("-");
   const dir = `./data/${date}/`;
 
-  fs.mkdir(dir, { recursive: true }, (err) => {
+  fs.mkdir(dir, { recursive: false }, (err) => {
     if (err) throw err;
   });
 
