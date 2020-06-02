@@ -30,10 +30,23 @@ const getSneakerDescription = async (page) => {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   await page.goto("https://wethenew.com/collections/coming-soon");
-  await page.screenshot({ path: "sample.png" });
+
   const results = [];
 
   let items = await page.$$(".thumbnail-overlay");
+
+  const url = page.url();
+  let hostname = "";
+  const extractHostname = (url) => {
+    if (url.indexOf("//") > -1) {
+      hostname = url.split("/")[2];
+    } else {
+      hostname = url.split("/")[0];
+    }
+
+    return hostname;
+  };
+  extractHostname(url);
 
   for (const item of items) {
     const sneakerDescription = await getSneakerDescription(page);
@@ -53,7 +66,16 @@ const getSneakerDescription = async (page) => {
     });
   }
   const data = JSON.stringify(results);
-  fs.writeFile("./data.json", data, (err) => {
+
+  const DATE = new Date().toLocaleString("fr-FR").slice(0, 10);
+  const date = DATE.split("/").join("-");
+  const dir = `./data/${date}/`;
+
+  fs.mkdir(dir, { recursive: true }, (err) => {
+    if (err) throw err;
+  });
+
+  fs.writeFile(`${dir}${hostname}.json`, data, (err) => {
     if (err) throw err;
     console.log("Data written to file");
   });
