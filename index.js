@@ -35,6 +35,7 @@ const getSneakerDescription = async (page) => {
 
   let items = await page.$$(".thumbnail-overlay");
 
+  // find hostname on url for create a files with this one
   const url = page.url();
   let hostname = "";
   const extractHostname = (url) => {
