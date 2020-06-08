@@ -68,6 +68,7 @@ const getSneakerDescription = async (page) => {
   }
   const data = JSON.stringify(results);
 
+  // CREATE  A FOLDER WITH THE DAY OF THE RESEARCH
   const DATE = new Date().toLocaleString("fr-FR").slice(0, 10);
   const date = DATE.split("/").join("-");
   const dir = `./data/${date}/`;

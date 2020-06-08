@@ -12,6 +12,8 @@
   "dependencies": {
     "diff": "^4.0.2",
     "puppeteer": "^3.2.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
     "stockx-api": "^1.0.4"
   }
 }
