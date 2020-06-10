@@ -2,11 +2,11 @@ const stockxAPI = require("stockx-api");
 const stockX = new stockxAPI({ currency: "EUR" });
 
 let url = "";
-// const data = [];
+let data = {};
 const details = [];
 
 const getInfo = async (query) => {
-  stockX
+  const info = stockX
     .searchProducts(query, {
       limit: 5,
     })
@@ -26,30 +26,16 @@ const getInfo = async (query) => {
           lastSaleDate: item.market.lastSaleDate,
         });
       }
-
-      // data.push({
-      //   name: product.name,
-      //   url: product.urlKey,
-      //   sku: product.pid,
-      //   details: details,
-      // });
-
-      const data = {
+      return (data = {
         name: product.name,
         url: product.urlKey,
         sku: product.pid,
         details: details,
-      };
-      return data;
+      });
     })
-    // .then(() => console.log(data))
     .catch((err) =>
       console.log(`Error scraping product details: ${err.message}`)
     );
+  return info;
 };
-module.exports.getInfo = getInfo;
-// const info = getInfo("CD0461-046");
-// console.log(info);
-// console.log(module.filename);
-// console.log(module.id);
-// console.log(module.exports);
+module.exports = getInfo;
